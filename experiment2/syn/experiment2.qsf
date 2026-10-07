@@ -22,7 +22,7 @@ set_global_assignment -name FAMILY "Cyclone IV E"
 set_global_assignment -name DEVICE EP4CE115F29C7
 set_global_assignment -name TOP_LEVEL_ENTITY experiment2
 set_global_assignment -name ORIGINAL_QUARTUS_VERSION 19.1.0
-set_global_assignment -name LAST_QUARTUS_VERSION "22.1std.0 Lite Edition"
+set_global_assignment -name LAST_QUARTUS_VERSION "19.1.0 Lite Edition"
 set_global_assignment -name SYSTEMVERILOG_FILE ../rtl/single_port_RAM0.v
 set_global_assignment -name SYSTEMVERILOG_FILE ../rtl/single_port_RAM1.v
 set_global_assignment -name SYSTEMVERILOG_FILE ../rtl/experiment2.sv

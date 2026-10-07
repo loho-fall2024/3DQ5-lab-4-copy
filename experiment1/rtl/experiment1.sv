@@ -25,11 +25,17 @@ module experiment1 (
 
 logic [3:0] value;
 logic [6:0] value_7_segment;
+logic [3:0] value_2;
+logic [6:0] value_7_segment_2;
 
 // Instantiate a module for converting hex number to 7-bit value for the 7-segment display
 convert_hex_to_seven_segment unit0 (
 	.hex_value(value), 
 	.converted_value(value_7_segment)
+);
+convert_hex_to_seven_segment unit1 (
+	.hex_value(value_2), 
+	.converted_value(value_7_segment_2)
 );
 
 // A priority encoder using successive (independent) if statements
@@ -46,6 +52,19 @@ always_comb begin
 	if (SWITCH_I[8]) value = 4'h8;
 	if (SWITCH_I[9]) value = 4'h9;
 end
+always_comb begin
+	value_2 = 4'hF;
+	if (SWITCH_I[9]) value_2 = 4'h9;
+	if (SWITCH_I[8]) value_2  = 4'h8;
+	if (SWITCH_I[7]) value_2  = 4'h7;
+	if (SWITCH_I[6]) value_2  = 4'h6;
+	if (SWITCH_I[5]) value_2  = 4'h5;
+	if (SWITCH_I[4]) value_2  = 4'h4;
+	if (SWITCH_I[3]) value_2  = 4'h3;
+	if (SWITCH_I[2]) value_2  = 4'h2;
+	if (SWITCH_I[1]) value_2  = 4'h1;
+	if (SWITCH_I[0]) value_2  = 4'h0;
+end
 
 assign  SEVEN_SEGMENT_N_O[0] = value_7_segment,
         SEVEN_SEGMENT_N_O[1] = 7'h7f,
@@ -54,9 +73,9 @@ assign  SEVEN_SEGMENT_N_O[0] = value_7_segment,
         SEVEN_SEGMENT_N_O[4] = 7'h7f,
         SEVEN_SEGMENT_N_O[5] = 7'h7f,
         SEVEN_SEGMENT_N_O[6] = 7'h7f,
-        SEVEN_SEGMENT_N_O[7] = 7'h7f;
+        SEVEN_SEGMENT_N_O[7] = value_7_segment_2;
 
 assign LED_RED_O = SWITCH_I;
-assign LED_GREEN_O = {5'h00, value};
+assign LED_GREEN_O = {1'h00, value_2, value};
 	
 endmodule

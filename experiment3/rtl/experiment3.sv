@@ -75,12 +75,13 @@ assign write_data_a[1] = 8'd0;
 
 // the adder for the write port of the first RAM
 assign write_data_b[0] = read_data_a[0] + read_data_a[1];
+assign write_data_b[1] = read_data_a[0] - read_data_a[1];
 // this is where the circuit is incomplete
 // expand as requested for the write port of the RAM1
-assign write_data_b[1] = 8'hff;
+//assign write_data_b[1] = 8'hff;
 // note: this write enable must be registered
 // and asserted ONLY when write data is valid
-assign write_enable_b[1] = 1'b0;
+//assign write_enable_b[1] = 1'b0;
 
 // FSM to control the read and write sequence
 always_ff @ (posedge CLOCK_50_I or negedge resetn) begin
@@ -88,6 +89,7 @@ always_ff @ (posedge CLOCK_50_I or negedge resetn) begin
 		read_address <= 9'd0;
 		write_address <= 9'd0;		
 		write_enable_b[0] <= 1'b0;
+		write_enable_b[1] <= 1'b0;
 		state <= S_IDLE;
 	end else begin
 		case (state)
@@ -105,7 +107,7 @@ always_ff @ (posedge CLOCK_50_I or negedge resetn) begin
 				// write enable will be asserted
 				// as of the second cc in this state
 				write_enable_b[0] <= 1'b1;
-	
+				write_enable_b[1] <= 1'b1;
 				// finished initiating reads
 				if (read_address == 9'd511)
 					state <= S_LAST_WRITE;
@@ -116,6 +118,7 @@ always_ff @ (posedge CLOCK_50_I or negedge resetn) begin
 				read_address <= 9'd0;
 				write_address <= 9'd0;		
 				write_enable_b[0] <= 1'b0;
+				write_enable_b[1] <= 1'b0;
 				state <= S_IDLE;
 			end
 		endcase
