@@ -8,8 +8,8 @@
 !.gitignore
 
 # Do not ignore exceptions from the following sub-folders
-!experiment*/
-!exercise*/
+!solution1/
+!solution2/
 !board/
 !data/
 !doc/

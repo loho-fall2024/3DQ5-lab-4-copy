@@ -1,0 +1,55 @@
+COE 3DQ5 Lab 4 Exercise 2 reference compilation report
+
+Compilation
+-----------
+Project: experiment4
+Top-level entity: experiment4
+Target: Cyclone IV E EP4CE115F29C7
+Quartus Prime: 21.1.1 Build 850 Lite Edition
+Flow: Analysis and Synthesis, Fitter, Assembler, and Timing Analyzer
+Status: PASS, 0 errors
+Programming file: output_files/experiment4.sof produced successfully
+Inferred-latch audit: PASS, no inferred-latch message
+Required-logic audit: PASS, the BIST controller, external SRAM interface,
+and fault-observation outputs remain in the implemented design
+
+Implemented resources
+---------------------
+Total logic elements: 156
+Total combinational functions: 143
+Dedicated logic registers: 83
+Total registers: 85
+Total memory bits: 0
+Embedded multiplier 9-bit elements: 0
+PLLs: 1
+Pins: 69
+
+The external SRAM array is not implemented in FPGA memory, so the design uses
+no embedded memory bits. The one PLL belongs to the supplied SRAM controller.
+
+The BIST uses 29 registers: 18 address bits, seven one-hot state bits, and
+one bit each for BIST_start_buf, BIST_we_n, BIST_finish, and BIST_mismatch.
+Expected data is combinational logic derived from the address and state;
+it requires no additional registers.
+
+Timing
+------
+Required input clock: 50 MHz, or a 20.000 ns period
+Generated SRAM-controller clock: 100 MHz
+Slow 1200 mV, 85 C setup slack at 50 MHz: 12.060 ns
+Slow 1200 mV, 85 C setup slack at 100 MHz: 4.588 ns
+Slow 1200 mV, 85 C hold slack: 0.402 ns
+Slow 1200 mV, 85 C reported Fmax for clk_50: 84.81 MHz
+Slow 1200 mV, 85 C reported Fmax for the generated clock: 144.05 MHz
+Setup constraints: fully constrained
+Hold constraints: fully constrained
+
+Verification evidence
+---------------------
+The private Questa grader passed one clean run and six injected-fault runs.
+The clean run traversed every even and odd address in the specified order,
+generated every write value correctly, and completed after the final returned
+value was checked. Faults injected at the first, middle, and last read of each
+session all asserted the sticky mismatch output.
+Two additional fault runs at addresses 00002 and 00003 passed, checking the
+penultimate comparison in each session.

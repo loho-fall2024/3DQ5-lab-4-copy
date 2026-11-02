@@ -1,0 +1,53 @@
+COE 3DQ5 Lab 4 Exercise 1 reference compilation report
+
+Compilation
+-----------
+Project: experiment3
+Top-level entity: experiment3
+Target: Cyclone IV E EP4CE115F29C7
+Quartus Prime: 21.1.1 Build 850 Lite Edition
+Flow: Analysis and Synthesis, Fitter, Assembler, and Timing Analyzer
+Status: PASS, 0 errors
+Programming file: output_files/experiment3.sof produced successfully
+Inferred-latch audit: PASS, no inferred-latch message
+Required-logic audit: PASS, no warning that the datapath, memories, or state
+machine was removed
+
+Implemented resources
+---------------------
+Total logic elements: 78
+Total combinational functions: 78
+Dedicated logic registers: 12
+Total registers: 12
+Total memory bits: 8,192
+Physical M9K blocks: 1
+Embedded multiplier 9-bit elements: 0
+PLLs: 0
+Pins: 28
+
+The two logical 512-by-8 true dual-port memories contain 8,192 bits in
+total. Quartus packs both logical memories into one physical M9K block.
+The fitted register count excludes registers inside the RAM block. The RTL
+contains the 8-bit msbits_address register, one write-enable register, and a two-bit state
+encoding. Quartus implements the three-state controller using three one-hot
+state bits, producing 12 fitted registers.
+
+Timing
+------
+Required input clock: 50 MHz, or a 20.000 ns period
+Slow 1200 mV, 85 C setup slack: 12.310 ns
+Slow 1200 mV, 85 C hold slack: 0.402 ns
+Slow 1200 mV, 85 C reported Fmax: 130.04 MHz
+Setup constraints: fully constrained
+Hold constraints: fully constrained
+
+The worst setup path reported by Quartus begins at a write-enable register
+inside RAM0 and ends at a RAM0 port-A data-input register. Its 7.694 ns data
+delay includes the signed comparison and result-selection logic that drives
+the value written into the memory. The path meets the 50 MHz requirement.
+
+Verification evidence
+---------------------
+The private Questa grader passed four deterministic datasets. Every RAM0 and
+RAM1 location was written once, every value matched the independent C model,
+and the final write occurred 512 clock cycles after the start edge.
